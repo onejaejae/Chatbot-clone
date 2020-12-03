@@ -42,7 +42,7 @@ router.post('/textQuery', async (req, res) => {
       console.log(`  Response: ${result.fulfillmentText}`);
       
      
-     res.send(responses)
+      res.send(responses)
     
 })
 
