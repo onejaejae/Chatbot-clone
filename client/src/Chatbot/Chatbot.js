@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Axios from 'axios';
 import { useDispatch, useSelector} from 'react-redux';
 import { saveMessage } from '../_actions/message_actions'
 
 function Chatbot() {
     const dispatch = useDispatch();
-    const [QueryText, setQueryText] = useState([]);
-    const [FulfillmentText, setFulfillmentText] = useState([]);
-    
+    const messageFromRedux = useSelector(state => state.message.messages);
+
     useEffect(() => {
         eventQuery();
     }, [])
-
-   
+    
     const textQuery = async ( text ) => {
 
         // First Need to take care of the message i sent
@@ -109,12 +107,26 @@ function Chatbot() {
        
     }
 
+    const renderOneMessage = (message, index) => {
+        console.log('message', message)
+    }
+
+    const renderMessage = (messageFromRedux) => {
+        if(messageFromRedux){
+            messageFromRedux.map((message, index) => {
+                return renderOneMessage(message, index);
+            })
+        }
+        
+    }  
+
     return (
 
-        
         <div style={{ height : 700, width : 700, border : '3px solid black', borderRadius : '7px' }}>
             <div style={{ height : 644, width : '100%', overflow : 'auto' }}>
-            
+
+                { renderMessage(messageFromRedux) }
+
             </div>
 
             <input 
